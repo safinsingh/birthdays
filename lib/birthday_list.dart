@@ -6,6 +6,8 @@ class BirthdayList extends StatefulWidget {
 }
 
 class BirthdayListState extends State<BirthdayList> {
+  TextEditingController editingController = TextEditingController();
+
   final _birthdays = [
     {"name": "Person 1", "date": "January 1"},
     {"name": "Person 2", "date": "January 2"},
@@ -46,6 +48,8 @@ class BirthdayListState extends State<BirthdayList> {
   }
 
   final title = Text("Birthdays");
+  final favoriteTitle = Text("Favorites");
+  final addTitle = Text("Add a Birthday");
 
   void _pushSaved() {
     Navigator.of(context)
@@ -59,21 +63,41 @@ class BirthdayListState extends State<BirthdayList> {
       final List<Widget> divided =
           ListTile.divideTiles(context: context, tiles: tiles).toList();
       return Scaffold(
-          appBar: AppBar(title: title), body: ListView(children: divided));
+          appBar: AppBar(title: favoriteTitle),
+          body: ListView(children: divided));
     }));
   }
 
+  void _pushAdd() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) {
+      return Scaffold(appBar: AppBar(title: addTitle), body: Text("Add"));
+    }));
+  }
+
+  void _pushSearch() {}
+
   Widget build(BuildContext build) {
     return Scaffold(
-        appBar: AppBar(
-          title: title,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.list),
-              onPressed: () => _pushSaved(),
-            )
-          ],
-        ),
-        body: _buildList());
+      appBar: AppBar(
+        title: title,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.favorite),
+            onPressed: () => _pushSaved(),
+          ),
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () => _pushSearch(),
+          )
+        ],
+      ),
+      body: _buildList(),
+      floatingActionButton: new FloatingActionButton(
+        child: new Icon(Icons.add),
+        backgroundColor: Colors.blue[700],
+        onPressed: () => _pushAdd(),
+      ),
+    );
   }
 }
