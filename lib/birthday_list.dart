@@ -64,7 +64,7 @@ class BirthdayListState extends State<BirthdayList> {
           ), // icon-1
           IconButton(
               icon: new Icon(Icons.edit),
-              onPressed: () => _pushEdit(context)), // icon-2
+              onPressed: () => _pushEdit(context, birthday)), // icon-2
         ],
       ),
     );
@@ -91,7 +91,7 @@ class BirthdayListState extends State<BirthdayList> {
     }));
   }
 
-  void _pushEdit(BuildContext context) {
+  void _pushEdit(BuildContext context, String birthday) {
     Picker(
         hideHeader: true,
         adapter: DateTimePickerAdapter(),
@@ -104,8 +104,9 @@ class BirthdayListState extends State<BirthdayList> {
               .substring(5, 11);
           final month = monthMap[date.substring(0, 2)];
           final day = date.substring(3, 5);
-          print(month);
-          print(day);
+          setState(() {
+            _birthdays[birthday] = month + " " + day;
+          });
         }).showDialog(context);
   }
 
