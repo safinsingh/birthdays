@@ -8,13 +8,28 @@ class BirthdayList extends StatefulWidget {
 
 class BirthdayListState extends State<BirthdayList> {
   final _birthdays = <String, String>{
-    "Person 1": "January 1",
-    "Person 2": "January 2",
-    "Person 3": "January 3",
-    "Person 4": "January 4",
+    "Person 1": "January 01",
+    "Person 2": "January 02",
+    "Person 3": "January 03",
+    "Person 4": "January 04",
   };
 
   final _favorites = [];
+
+  final monthMap = <String, String>{
+    "01": "January",
+    "02": "February",
+    "03": "March",
+    "04": "April",
+    "05": "May",
+    "06": "June",
+    "07": "July",
+    "08": "August",
+    "09": "September",
+    "10": "October",
+    "11": "November",
+    "12": "December",
+  };
 
   Widget _buildList() {
     return ListView.separated(
@@ -83,7 +98,14 @@ class BirthdayListState extends State<BirthdayList> {
         title: Text("Select New Birthday"),
         selectedTextStyle: TextStyle(color: Colors.blue),
         onConfirm: (Picker picker, List value) {
-          print((picker.adapter as DateTimePickerAdapter).value);
+          final date = (picker.adapter as DateTimePickerAdapter)
+              .value
+              .toString()
+              .substring(5, 11);
+          final month = monthMap[date.substring(0, 2)];
+          final day = date.substring(3, 5);
+          print(month);
+          print(day);
         }).showDialog(context);
   }
 
