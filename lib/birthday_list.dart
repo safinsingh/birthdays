@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
+// import 'package:jiffy/jiffy.dart';
+// import 'package:jiffy/src/enums/units.dart';
+// Jiffy("2020 $month $day", "yyyy MMMM dd").fromNow()
 
 class BirthdayList extends StatefulWidget {
   @override
@@ -30,6 +33,9 @@ class BirthdayListState extends State<BirthdayList> {
     "11": "November",
     "12": "December",
   };
+
+  var newDate = "";
+  var newName = "";
 
   Widget _buildList() {
     return ListView.separated(
@@ -104,14 +110,85 @@ class BirthdayListState extends State<BirthdayList> {
               .substring(5, 11);
           final month = monthMap[date.substring(0, 2)];
           final day = date.substring(3, 5);
+
           setState(() {
             _birthdays[birthday] = month + " " + day;
           });
         }).showDialog(context);
   }
 
+  void _pushAddDate(BuildContext context) {
+    Picker(
+        hideHeader: true,
+        adapter: DateTimePickerAdapter(),
+        title: Text("Select New Birthday"),
+        selectedTextStyle: TextStyle(color: Colors.blue),
+        onConfirm: (Picker picker, List value) {
+          final date = (picker.adapter as DateTimePickerAdapter)
+              .value
+              .toString()
+              .substring(5, 11);
+          final month = monthMap[date.substring(0, 2)];
+          final day = date.substring(3, 5);
+          setState(() {
+            newDate = "$month $day";
+          });
+        }).showDialog(context);
+  }
+
+  void _pushAddSubmit(BuildContext context) {
+    setState(() {
+      _birthdays[newName] = newDate;
+    });
+    Navigator.of(context).pop();
+  }
+
   void _pushSearch() {}
-  void _pushAdd() {}
+
+  void _pushAdd() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) {
+      return Scaffold(
+          appBar: AppBar(title: addTitle),
+          body: Center(
+              child: Column(children: <Widget>[
+            TextField(
+              style: TextStyle(fontSize: 20.0),
+              onChanged: (text) {
+                setState(() {
+                  newName = text;
+                });
+              },
+            ),
+            FlatButton(
+              color: Colors.blue,
+              textColor: Colors.white,
+              disabledColor: Colors.grey,
+              disabledTextColor: Colors.black,
+              padding: EdgeInsets.all(8.0),
+              splashColor: Colors.blueAccent,
+              onPressed: () => _pushAddDate(context),
+              child: Text(
+                "Set Date",
+                style: TextStyle(fontSize: 20.0),
+              ),
+            ),
+            FlatButton(
+              color: Colors.blue,
+              textColor: Colors.white,
+              disabledColor: Colors.grey,
+              disabledTextColor: Colors.black,
+              padding: EdgeInsets.all(8.0),
+              splashColor: Colors.blueAccent,
+              onPressed: () => _pushAddSubmit(context),
+              child: Text(
+                "Submit",
+                style: TextStyle(fontSize: 20.0),
+              ),
+            )
+          ])));
+    }));
+  }
 
   Widget build(BuildContext build) {
     return Scaffold(
