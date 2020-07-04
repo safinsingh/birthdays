@@ -14,7 +14,7 @@ class BirthdayListState extends State<BirthdayList> {
     "Person 4": "January 4",
   };
 
-  final _favorites = <String, String>{};
+  final _favorites = [];
 
   Widget _buildList() {
     return ListView.separated(
@@ -29,7 +29,7 @@ class BirthdayListState extends State<BirthdayList> {
   }
 
   Widget _buildRow(birthday) {
-    final alrSaved = _favorites.containsKey(birthday);
+    final alrSaved = _favorites.contains(birthday);
     return ListTile(
       title: Text(birthday + ": " + _birthdays[birthday]),
       trailing: Wrap(
@@ -42,7 +42,7 @@ class BirthdayListState extends State<BirthdayList> {
                 if (alrSaved) {
                   _favorites.remove(birthday);
                 } else {
-                  _favorites.addEntries(birthday);
+                  _favorites.add(birthday);
                 }
               });
             },
@@ -62,12 +62,14 @@ class BirthdayListState extends State<BirthdayList> {
   void _pushSaved() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (BuildContext context) {
-      final List<Widget> divided = ListTile.divideTiles(
-        context: context,
-        tiles: _favorites.entries.map((e) => ListTile(
-              title: Text('${e.key}: ${e.value}'),
-            )),
-      );
+      final Iterable<ListTile> tiles = _favorites.map((birthday) {
+        return ListTile(
+          title: Text(birthday + ": " + _birthdays[birthday]),
+        );
+      });
+
+      final List<Widget> divided =
+          ListTile.divideTiles(context: context, tiles: tiles).toList();
       return Scaffold(
           appBar: AppBar(title: favoriteTitle),
           body: ListView(children: divided));
