@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_picker/flutter_picker.dart';
 
 class BirthdayList extends StatefulWidget {
   @override
@@ -6,17 +7,15 @@ class BirthdayList extends StatefulWidget {
 }
 
 class BirthdayListState extends State<BirthdayList> {
-  TextEditingController editingController = TextEditingController();
+  final _birthdays = <String, String>{
+    "Person 1": "January 1",
+    "Person 2": "January 2",
+    "Person 3": "January 3",
+    "Person 4": "January 4",
+  };
 
-  final _birthdays = [
-    {"name": "Person 1", "date": "January 1"},
-    {"name": "Person 2", "date": "January 2"},
-    {"name": "Person 3", "date": "January 3"},
-    {"name": "Person 4", "date": "January 4"},
-    {"name": "Person 5", "date": "January 5"},
-  ];
+  final _favorites = <String, String>{};
 
-  final _favorites = Set<Map>();
   Widget _buildList() {
     return ListView.separated(
         separatorBuilder: (BuildContext context, int index) => Divider(
@@ -25,25 +24,34 @@ class BirthdayListState extends State<BirthdayList> {
             ),
         itemCount: _birthdays.length,
         itemBuilder: (BuildContext context, int index) {
-          return _buildRow(_birthdays[index]);
+          return _buildRow(_birthdays.keys.toList()[index]);
         });
   }
 
   Widget _buildRow(birthday) {
-    final alrSaved = _favorites.contains(birthday);
+    final alrSaved = _favorites.containsKey(birthday);
     return ListTile(
-      title: Text(birthday['name'] + ": " + birthday['date']),
-      trailing: Icon(alrSaved ? Icons.favorite : Icons.favorite_border,
-          color: alrSaved ? Colors.red : null),
-      onTap: () {
-        setState(() {
-          if (alrSaved) {
-            _favorites.remove(birthday);
-          } else {
-            _favorites.add(birthday);
-          }
-        });
-      },
+      title: Text(birthday + ": " + _birthdays[birthday]),
+      trailing: Wrap(
+        children: <Widget>[
+          IconButton(
+            icon: new Icon(alrSaved ? Icons.favorite : Icons.favorite_border,
+                color: alrSaved ? Colors.red : null),
+            onPressed: () {
+              setState(() {
+                if (alrSaved) {
+                  _favorites.remove(birthday);
+                } else {
+                  _favorites.addEntries(birthday);
+                }
+              });
+            },
+          ), // icon-1
+          IconButton(
+              icon: new Icon(Icons.edit),
+              onPressed: () => _pushEdit(context)), // icon-2
+        ],
+      ),
     );
   }
 
@@ -54,28 +62,31 @@ class BirthdayListState extends State<BirthdayList> {
   void _pushSaved() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (BuildContext context) {
-      final Iterable<ListTile> tiles = _favorites.map((birthday) {
-        return ListTile(
-          title: Text(birthday['name'] + ": " + birthday['date']),
-        );
-      });
-
-      final List<Widget> divided =
-          ListTile.divideTiles(context: context, tiles: tiles).toList();
+      final List<Widget> divided = ListTile.divideTiles(
+        context: context,
+        tiles: _favorites.entries.map((e) => ListTile(
+              title: Text('${e.key}: ${e.value}'),
+            )),
+      );
       return Scaffold(
           appBar: AppBar(title: favoriteTitle),
           body: ListView(children: divided));
     }));
   }
 
-  void _pushAdd() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (BuildContext context) {
-      return Scaffold(appBar: AppBar(title: addTitle), body: Text("Add"));
-    }));
+  void _pushEdit(BuildContext context) {
+    Picker(
+        hideHeader: true,
+        adapter: DateTimePickerAdapter(),
+        title: Text("Select New Birthday"),
+        selectedTextStyle: TextStyle(color: Colors.blue),
+        onConfirm: (Picker picker, List value) {
+          print((picker.adapter as DateTimePickerAdapter).value);
+        }).showDialog(context);
   }
 
   void _pushSearch() {}
+  void _pushAdd() {}
 
   Widget build(BuildContext build) {
     return Scaffold(
