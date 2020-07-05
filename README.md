@@ -35,7 +35,7 @@
 
 ```sh
 git clone https://github.com/safinsingh/birthdays.git
-pub get
+flutter pub get
 flutter run
 ```
 
