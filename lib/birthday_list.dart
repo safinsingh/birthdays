@@ -3,10 +3,6 @@ import 'package:flutter_picker/flutter_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-// import 'package:jiffy/jiffy.dart';
-// import 'package:jiffy/src/enums/units.dart';
-// Jiffy("2020 $month $day", "yyyy MMMM dd").fromNow()
-
 class BirthdayList extends StatefulWidget {
   @override
   BirthdayListState createState() => BirthdayListState();

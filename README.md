@@ -1,16 +1,59 @@
-# birthdays
+<p align="center">
+  <h1>Birthdays</h1>
+</p>
 
-A new Flutter project.
+<h3 align="center">
+  <i>
+    Keep track of others' birthdays with ease
+  </i>
+</h3>
 
-## Getting Started
+<p align="center">
+  <img alt="Version" src="https://img.shields.io/badge/Version-1.0-red.svg" />
+  <img alt="License: MIT" src="https://img.shields.io/badge/License-GPLv3-orange.svg" />
+  <img alt="Made with Dart" src="https://img.shields.io/badge/Made%20with-Dart-yellow.svg" />
+  <img alt="Maintained" src="https://img.shields.io/badge/Maintained-Yes-brightgreen">
+  <img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-Welcome-blue.svg">
+  <img alt="awesome" src="https://img.shields.io/badge/Awesome-Yes-blueviolet">
+</p>
 
-This project is a starting point for a Flutter application.
+<hr>
 
-A few resources to get you started if this is your first Flutter project:
+## 💡 Features
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Add, remove, and edit birthdays
+- Persistent local data storage
+- Lightweight, simple, and clean UI
+  - Material Design-style widgets
+- Easy-to use sliding date picker
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## ✨ In Action
+
+<p align="center">
+  <img src="./assets/recorder.gif" />
+</p>
+
+## 💻 Try it out
+
+```sh
+git clone https://github.com/safinsingh/birthdays.git
+pub get
+```
+
+Then, start your emulator and run the app!
+
+## 👨‍💻 Author
+
+Linkedin: [Safin Singh](https://www.linkedin.com/in/safin-singh-b2630918a/) <br>
+GitHub: [safinsingh](https://github.com/safinsingh) <br>
+Dribbble: [Safin Singh](https://dribbble.com/safinsingh/) <br>
+YouTube: [Safin Singh](https://www.youtube.com/channel/UCvb01sUdAgcPAG1j0SLxAtA)
+
+## 🤝 Contributing
+
+Contributions, PRs, issues and feature requests are welcome! Feel free to check out my [issues page](https://github.com/safinsingh/midnight/issues).
+
+## ❤️ Show your support
+
+Give a ⭐️ if this project helped you!
+Hope you enjoy it!
