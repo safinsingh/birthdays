@@ -65,7 +65,14 @@ class BirthdayListState extends State<BirthdayList> {
           ), // icon-1
           IconButton(
               icon: new Icon(Icons.edit),
-              onPressed: () => _pushEdit(context, birthday)), // icon-2
+              onPressed: () => _pushEdit(context, birthday)),
+          IconButton(
+              icon: new Icon(Icons.backspace),
+              onPressed: () {
+                setState(() {
+                  _birthdays.remove(birthday);
+                });
+              }), // icon-2
         ],
       ),
     );
@@ -137,8 +144,6 @@ class BirthdayListState extends State<BirthdayList> {
     });
     Navigator.of(context).pop();
   }
-
-  void _pushSearch() {}
 
   void _pushAdd() {
     Navigator.of(context)
@@ -219,10 +224,6 @@ class BirthdayListState extends State<BirthdayList> {
             icon: Icon(Icons.favorite),
             onPressed: () => _pushSaved(),
           ),
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () => _pushSearch(),
-          )
         ],
       ),
       body: _buildList(),
