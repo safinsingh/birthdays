@@ -10,12 +10,7 @@ class BirthdayList extends StatefulWidget {
 }
 
 class BirthdayListState extends State<BirthdayList> {
-  final _birthdays = <String, String>{
-    "Person 1": "January 01",
-    "Person 2": "January 02",
-    "Person 3": "January 03",
-    "Person 4": "January 04",
-  };
+  final _birthdays = <String, String>{};
 
   final _favorites = [];
 
@@ -150,43 +145,64 @@ class BirthdayListState extends State<BirthdayList> {
         .push(MaterialPageRoute(builder: (BuildContext context) {
       return Scaffold(
           appBar: AppBar(title: addTitle),
-          body: Center(
-              child: Column(children: <Widget>[
-            TextField(
-              style: TextStyle(fontSize: 20.0),
-              onChanged: (text) {
-                setState(() {
-                  newName = text;
-                });
-              },
-            ),
-            FlatButton(
-              color: Colors.blue,
-              textColor: Colors.white,
-              disabledColor: Colors.grey,
-              disabledTextColor: Colors.black,
-              padding: EdgeInsets.all(8.0),
-              splashColor: Colors.blueAccent,
-              onPressed: () => _pushAddDate(context),
-              child: Text(
-                "Set Date",
-                style: TextStyle(fontSize: 20.0),
+          body: Row(
+            children: <Widget>[
+              Expanded(
+                flex: 2, // 20%
+                child: Container(),
               ),
-            ),
-            FlatButton(
-              color: Colors.blue,
-              textColor: Colors.white,
-              disabledColor: Colors.grey,
-              disabledTextColor: Colors.black,
-              padding: EdgeInsets.all(8.0),
-              splashColor: Colors.blueAccent,
-              onPressed: () => _pushAddSubmit(context),
-              child: Text(
-                "Submit",
-                style: TextStyle(fontSize: 20.0),
+              Expanded(
+                flex: 6, // 60%
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      TextField(
+                        style: TextStyle(fontSize: 20.0),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Set Name',
+                        ),
+                        onChanged: (text) {
+                          setState(() {
+                            newName = text;
+                          });
+                        },
+                      ),
+                      FlatButton(
+                        color: Colors.blue,
+                        textColor: Colors.white,
+                        disabledColor: Colors.grey,
+                        disabledTextColor: Colors.black,
+                        padding: EdgeInsets.all(8.0),
+                        splashColor: Colors.blueAccent,
+                        onPressed: () => _pushAddDate(context),
+                        child: Text(
+                          "Set Date",
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                      ),
+                      FlatButton(
+                        color: Colors.blue,
+                        textColor: Colors.white,
+                        disabledColor: Colors.grey,
+                        disabledTextColor: Colors.black,
+                        padding: EdgeInsets.all(8.0),
+                        splashColor: Colors.blueAccent,
+                        onPressed: () => _pushAddSubmit(context),
+                        child: Text(
+                          "Submit",
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                      ),
+                    ]),
               ),
-            )
-          ])));
+              Expanded(
+                flex: 2, // 20%
+                child: Container(),
+              )
+            ],
+          ));
     }));
   }
 
