@@ -36,9 +36,8 @@
 ```sh
 git clone https://github.com/safinsingh/birthdays.git
 pub get
+flutter run
 ```
-
-Then, start your emulator and run the app!
 
 ## 👨‍💻 Author
 
