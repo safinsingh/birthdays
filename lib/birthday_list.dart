@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+
 // import 'package:jiffy/jiffy.dart';
 // import 'package:jiffy/src/enums/units.dart';
 // Jiffy("2020 $month $day", "yyyy MMMM dd").fromNow()
@@ -10,9 +13,9 @@ class BirthdayList extends StatefulWidget {
 }
 
 class BirthdayListState extends State<BirthdayList> {
-  final _birthdays = <String, String>{};
+  var _birthdays = <String, String>{};
 
-  final _favorites = [];
+  var _favorites = [];
 
   final monthMap = <String, String>{
     "01": "January",
@@ -31,6 +34,24 @@ class BirthdayListState extends State<BirthdayList> {
 
   var newDate = "";
   var newName = "";
+
+  @override
+  void initState() {
+    getBirthdaysPref().then(updateBirthdays);
+    super.initState();
+  }
+
+  void updateBirthdays(String birthdays) {
+    setState(() {
+      this._birthdays = json.decode(birthdays);
+    });
+  }
+
+  void updateFavorites(String favorites) {
+    setState(() {
+      this._favorites = json.decode(favorites);
+    });
+  }
 
   Widget _buildList() {
     return ListView.separated(
@@ -61,6 +82,7 @@ class BirthdayListState extends State<BirthdayList> {
                   _favorites.add(birthday);
                 }
               });
+              saveFavorites(_favorites);
             },
           ), // icon-1
           IconButton(
@@ -72,6 +94,7 @@ class BirthdayListState extends State<BirthdayList> {
                 setState(() {
                   _birthdays.remove(birthday);
                 });
+                saveBirthdays(_birthdays);
               }), // icon-2
         ],
       ),
@@ -116,6 +139,7 @@ class BirthdayListState extends State<BirthdayList> {
           setState(() {
             _birthdays[birthday] = month + " " + day;
           });
+          saveBirthdays(_birthdays);
         }).showDialog(context);
   }
 
@@ -142,6 +166,7 @@ class BirthdayListState extends State<BirthdayList> {
     setState(() {
       _birthdays[newName] = newDate;
     });
+    saveBirthdays(_birthdays);
     Navigator.of(context).pop();
   }
 
@@ -234,4 +259,38 @@ class BirthdayListState extends State<BirthdayList> {
       ),
     );
   }
+
+  void saveBirthdays(bdays) {
+    saveBirthdaysPref(bdays);
+  }
+
+  void saveFavorites(favs) {
+    saveFavoritesPref(favs);
+  }
+}
+
+Future<bool> saveBirthdaysPref(Map birthdays) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString("birthdays", json.encode(birthdays));
+
+  return true;
+}
+
+Future<String> getBirthdaysPref() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String birthdays = prefs.getString("birthdays");
+  return birthdays;
+}
+
+Future<bool> saveFavoritesPref(List favorites) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString("favorites", json.encode(favorites));
+
+  return true;
+}
+
+Future<String> getFavoritesPref() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String favorites = prefs.getString("favorites");
+  return favorites;
 }

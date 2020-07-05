@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import './birthday_list.dart';
 
-void main() => runApp(BirthdayApp());
+void main() {
+  runApp(BirthdayApp());
+}
 
 class BirthdayApp extends StatelessWidget {
   @override
