@@ -1,6 +1,4 @@
-<p align="center">
-  <h1>Birthdays</h1>
-</p>
+<h1 align="center">Birthdays</h1>
 
 <h3 align="center">
   <i>
