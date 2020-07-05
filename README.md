@@ -39,6 +39,8 @@ flutter pub get
 flutter run
 ```
 
+> NOTE: The Flutter SDK must be installed prior to running the above commands. See https://flutter.dev/docs/get-started/install for more information.
+
 ## 👨‍💻 Author
 
 Linkedin: [Safin Singh](https://www.linkedin.com/in/safin-singh-b2630918a/) <br>
