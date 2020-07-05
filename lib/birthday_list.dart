@@ -143,67 +143,71 @@ class BirthdayListState extends State<BirthdayList> {
   void _pushAdd() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (BuildContext context) {
-      return Scaffold(
-          appBar: AppBar(title: addTitle),
-          body: Row(
-            children: <Widget>[
-              Expanded(
-                flex: 2, // 20%
-                child: Container(),
-              ),
-              Expanded(
-                flex: 6, // 60%
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      TextField(
-                        style: TextStyle(fontSize: 20.0),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Set Name',
-                        ),
-                        onChanged: (text) {
-                          setState(() {
-                            newName = text;
-                          });
-                        },
-                      ),
-                      FlatButton(
-                        color: Colors.blue,
-                        textColor: Colors.white,
-                        disabledColor: Colors.grey,
-                        disabledTextColor: Colors.black,
-                        padding: EdgeInsets.all(8.0),
-                        splashColor: Colors.blueAccent,
-                        onPressed: () => _pushAddDate(context),
-                        child: Text(
-                          "Set Date",
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                      ),
-                      FlatButton(
-                        color: Colors.blue,
-                        textColor: Colors.white,
-                        disabledColor: Colors.grey,
-                        disabledTextColor: Colors.black,
-                        padding: EdgeInsets.all(8.0),
-                        splashColor: Colors.blueAccent,
-                        onPressed: () => _pushAddSubmit(context),
-                        child: Text(
-                          "Submit",
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                      ),
-                    ]),
-              ),
-              Expanded(
-                flex: 2, // 20%
-                child: Container(),
-              )
-            ],
-          ));
+      return addScreen(context);
     }));
+  }
+
+  Scaffold addScreen(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: addTitle),
+        body: Row(
+          children: <Widget>[
+            Expanded(
+              flex: 2, // 20%
+              child: Container(),
+            ),
+            Expanded(
+              flex: 6, // 60%
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    TextField(
+                      style: TextStyle(fontSize: 20.0),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Set Name',
+                      ),
+                      onChanged: (text) {
+                        setState(() {
+                          newName = text;
+                        });
+                      },
+                    ),
+                    FlatButton(
+                      color: Colors.blue,
+                      textColor: Colors.white,
+                      disabledColor: Colors.grey,
+                      disabledTextColor: Colors.black,
+                      padding: EdgeInsets.all(8.0),
+                      splashColor: Colors.blueAccent,
+                      onPressed: () => _pushAddDate(context),
+                      child: Text(
+                        "Set Date",
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                    ),
+                    FlatButton(
+                      color: Colors.blue,
+                      textColor: Colors.white,
+                      disabledColor: Colors.grey,
+                      disabledTextColor: Colors.black,
+                      padding: EdgeInsets.all(8.0),
+                      splashColor: Colors.blueAccent,
+                      onPressed: () => _pushAddSubmit(context),
+                      child: Text(
+                        "Submit",
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                    ),
+                  ]),
+            ),
+            Expanded(
+              flex: 2, // 20%
+              child: Container(),
+            )
+          ],
+        ));
   }
 
   Widget build(BuildContext build) {
